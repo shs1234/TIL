@@ -155,3 +155,4 @@ $ git remote add origin 깃허브url
   그리고, 항상 모든 명령어 이후에 연관된 상태를 확인하자.
 
   `status`, `log`, `remote -v`
+
