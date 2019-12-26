@@ -8,7 +8,7 @@
 
 ## 0. 준비하기.
 
-윈도우에서 git을 활용하기 위해서  [git bash](https://git-scm.com/download/win)를 설치한다.
+윈도우에서 git을 활용하기 위해서  [git bash](https://git-scm.com/)를 설치한다.
 
 git을 활용하기 위해서 GUI 툴인 `source tree`, `github desktop` 등을 활용할 수도 있다.
 
@@ -99,6 +99,7 @@ $ git commit -m '마크다운 및 git 정리'
 커밋 이후에는 아래의 명령어를 통해 지금까지 작성된 이력을 확인하자.
 
 ```bash
+# 상세 로그 내용을 출력
 $ git log
 commit 5900c241cbf0439a8e3b4c63b5852441a76009da (HEAD -> master)
 Author: shs1234 <guichanist@gmail.com>
@@ -107,10 +108,14 @@ Date:   Thu Dec 26 14:37:04 2019 +0900
     마크다운 및 git 정리
 
 student@M50420 MINGW64 ~/Desktop/TIL (master)
+
+# 메시지들을 한줄로 출력
 $ git log --oneline
 5900c24 (HEAD -> master) 마크다운 및 git 정리
 
 student@M50420 MINGW64 ~/Desktop/TIL (master)
+
+# 최근 추가된 로그 하나를 출력
 $ git log -1
 commit 5900c241cbf0439a8e3b4c63b5852441a76009da (HEAD -> master)
 Author: shs1234 <guichanist@gmail.com>
@@ -121,7 +126,11 @@ Date:   Thu Dec 26 14:37:04 2019 +0900
 
 커밋은 해시코드를 바탕으로 구분된다.
 
+
+
 ## 2. 원격 저장소(remote repository) 활용하기.
+
+
 
 ### 0. 준비사항
 
@@ -139,8 +148,8 @@ $ git remote add origin 깃허브url
 
   ```bash
   $ git remote -v
-  origin http://github.com/shs1234/TIL.git (fetch)
-  origin http://github.com/shs1234/TIL.git (push)
+  origin  https://github.com/shs1234/TIL.git (fetch)
+  origin  https://github.com/shs1234/TIL.git (push)
   ```
 
 ### 2. `push` - 원격 저장소 업로드
@@ -156,8 +165,6 @@ $ git push origin master
 그리고, 항상 모든 명령어 이후에 연관된 상태를 확인하자.
 
 `status`, `log`, `remote -v`
-
-
 
 ### 3. `pull`
 
@@ -176,4 +183,3 @@ $ git clone 깃허브url
 원격 저장소를 복제한다.
 
 **주의! `init` 명령어와 같이 기억하자.**
-
