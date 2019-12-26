@@ -7,7 +7,7 @@
 * [git 기초](./git/git.md)
 * [gitignore](./git/gitignore)
 * [마크다운 활용](./markdown.md)
-* [push-pull 과정에서 오류 해결 방법](./git/push_pull 과정에서 오류 해결 방법.md)
+* [push_pull 과정에서 오류 해결 방법](./git/push_pull 과정에서 오류 해결 방법.md)
 
 
 
