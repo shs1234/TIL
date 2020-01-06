@@ -1,0 +1,403 @@
+person1 = Person("사람1", 30)  #부모클래스 객체 생성 및 초기화
+person1.about_me()               # 메소드 호출
+person1.do_work() #에러
+
+emp1 = Employee("일꾼1", 28, '남', 300, '2019/01/01') #자식클래스 객체 생성 및 초기화
+emp1.about_me()                                                  # override 메서드 호출
+emp1.do_work()                                                   #자식클래스에만 정의된 메소드 호출
+
+
+
+
+
+
+###프로그래밍 연습문제 #######################
+1. 1~45사이의 임의의 수  6개를 중복값 없이 생성, 출력하시오
+
+
+
+
+
+
+
+  
+##############################################################
+python에서 데이터를 효율적으로 메모리 저장하고, 검색, 반환, 관리를 위해 제공되는 자료구조
+Stack은 LIFO(FILO)구조로서... list.append(), list.pop()을 활용합니다
+Queue는 FIFO구조로서...list.append(), list.pop(0)를 활용합니다.
+set 자료구조는 데이터를 저장할때 중복체크 후 중복되지 않았을때 저장함
+set 자료구조는 집합연산 기능을 제공 - union(), | , -, difference(), intersection(), &...
+collections 모듈  
+dequeue는 statck 과 queue구조로 데이터를 사용할 수 있음
+OrderedDict dict 의 key 또는 value를 기준으로 정렬해서 저장하는 구조
+
+dict는 key 는  unique해야 하며 .....존재하지 않는 key로 값을 꺼낼때 Error
+방법1 : dict.get("key", defaultValue)
+방법2 : defaultDict
+
+Counter는 시퀀스 자료형의 데이터 요소 개수를 딕셔너리 형태로 반환해주는 자료구조
+
+문자열을 구분자를 이용해서 분리할때 split()
+여러 문자열을 구분자를 이용해서 하나의 문자열로 결합할때 join()
+
+List Comprehension  -  필터링, map처리 , reduce처리
+[ 표현식 for 아이템 in (시퀀스 자료형 또는 dict자료형) if 조건 ]
+[ if 조건 표현식   for 아이템 in (시퀀스 자료형 또는 dict자료형)  ]
+[ if 조건 표현식  else  표현식 for 아이템 in (시퀀스 자료형 또는 dict자료형)  ]
+[ 표현식 for 아이템1 in (시퀀스 자료형 또는 dict자료형) for 아이템2 in (시퀀스 자료형 또는 dict자료형)]
+=> for 아이템1 in (시퀀스 자료형 또는 dict자료형):
+          for 아이템2 in (시퀀스 자료형 또는 dict자료형):
+              표현식
+[ [표현식 for 아이템1 in (시퀀스 자료형 또는 dict자료형)] for 아이템2 in (시퀀스 자료형 또는 dict자료형)]
+=> for 아이템2 in (시퀀스 자료형 또는 dict자료형):
+          for 아이템1 in (시퀀스 자료형 또는 dict자료형):
+              표현식
+[ [ ...], [...], [...]]
+
+map( 함수,  자료구조객체) => Generator 객체 반환
+list(map( 함수,  자료구조객체) ) #python3버전에서는 이렇게 사용해야 list로 생성됩니다.
+
+from functools import reduce
+reduce(함수,  자료구조객체) 는 자료구조의 데이터에 함수를 적용하여 통합(요약집계) 처리할때 사용
+
+enumerate() - 리스트로부터 데이터와 인덱스를 함께 반환
+zip() - 여러 시퀀스 객체들로부터 동일한 인덱스에 저장된 데이터를 묶어서 반환
+
+
+def 함수이름(*매개변수) :    #가변매개변수이므로  함수 호출시 가변인수 전달     
+def 함수이름(**매개변수) :    #키워드가변매개변수이므로  함수 호출시 이름=값 형태의 가변인수 전달
+
+def 함수이름(매개변수) : 
+    local1, local2, local2,...= *매개변수   #unpacking
+
+
+def 함수이름(매개변수) : 
+    [[], [], [],... ]= **매개변수
+     [(), (), (),.... ]= **매개변수  #unpacking
+
+
+
+
+
+
+################2019.12.11 프로그래밍 연습문제 solution #################
+###김성민
+1.
+
+list = []
+for i in range(0, 10):
+    n = int(input())
+    if(n == 0):
+        break
+    else:
+        list.append(n)
+
+list.sort()
+l = len(list) - 1
+if(l < 0):
+    print("no input")
+else:
+    print(list[l - 1])
+
+2. 
+2번.
+
+list = input()
+list.upper()
+
+s = set([])
+for i in list:
+    s.add(i)
+
+countList = []
+count = 0
+index = 0
+maxChar = ''
+for i in s:
+    if i == ' ':
+        continue
+    n = list.count(i)
+    countList.append(n)
+    if n > count:
+        count = n
+        maxChar = i
+
+countList.sort()
+
+if len(countList) == 1 :
+    print(maxChar)
+else:
+    if countList[len(countList) - 1] == countList[len(countList) - 2]:
+        print("?")
+    else:
+        print(maxChar)
+
+
+### 이수진
+1.
+numbers = []
+
+while len(numbers) < 10:
+    new_number = int(input("Enter a number: "))
+    if new_number == 0:
+        break
+    else:
+        numbers.append(new_number)
+       
+numbers.sort()
+
+if len(numbers)<2:
+    print('입력값이 2개 미만입니다.')
+else:
+    print("두번째로 큰 숫자는 %d입니다."%numbers[-2])
+
+2.
+#방법1
+s = input('Enter a sentence')
+
+s_lowered = s.lower()
+
+letters_used = set(list(s_lowered))
+letters_used.remove(' ')
+
+letter_count_dict = OrderedDict()
+
+for letter in letters_used:
+    letter_count = s_lowered.count(letter)
+    letter_count_dict[letter] = letter_count
+
+temp_k = []
+temp_v = 0
+
+for k, v in letter_count_dict.items():
+    if v > temp_v:
+        temp_k.clear()
+        temp_k.append(k)
+        temp_v = v
+    elif v == temp_v:
+        temp_k.append(k)
+    else:
+        continue
+
+if len(temp_k) == 0:
+    print(temp_k)
+else:
+    print('?')
+
+#방법2
+s = input('Enter a sentence: ')
+s_lowered = s.lower()
+letters_used = set(list(s_lowered))
+while ' ' in letters_used:
+    letters_used.remove(' ')
+letter_count_dict = OrderedDict()
+for letter in letters_used:
+    letter_count = s_lowered.count(letter)
+    letter_count_dict[letter] = letter_count
+temp_k = []
+temp_v = 0
+for k, v in letter_count_dict.items():
+    if v > temp_v:
+        temp_k.clear()
+        temp_k.append(k)
+        temp_v = v
+    elif v == temp_v:
+        temp_k.append(k)
+    else:
+        continue
+if len(temp_k) == 1:
+    print('가장 많이 사용된 알파벳은 %s'%temp_k[0])
+else:
+    print('?')
+
+#주혜진
+1번  
+
+arr=[]
+
+i =0
+
+while i<10:
+
+    num = int(input())
+
+    if num == 0:
+
+        break
+
+    else :
+
+         arr.append(num)
+
+    i+=1
+
+ 
+
+arr.sort(reverse =True)
+
+print(arr[1])
+
+    
+
+2번
+
+ 
+
+def f1(x):
+
+    return x[0]
+
+ 
+
+arr =input()
+
+arr=arr.replace(" ","")
+
+d = {}
+
+s = set(arr)
+
+ 
+
+check =False
+
+for ch in s:
+
+    key = arr.count(ch)
+
+    if key in d.keys():
+
+        check=True
+
+        print("?")
+
+        break
+
+    else :
+
+        d[key]= ch
+
+ 
+
+if check==False:
+
+    result=sorted(d.items(),key=f1,reverse= True)
+
+    print(result[0][1])    
+
+
+### 박경인
+# 연습문제 1번
+
+print('정수를 입력하세요 (최대 10개)')
+
+numbers = []
+
+for _ in range(10):
+
+    n = int(input('정수 : '))
+
+    if n == 0:
+
+        break
+
+    else:
+
+        numbers.append(n)
+
+try:
+
+    print(list(set(numbers))[-2])
+
+except:
+
+    print('존재하지 않습니다.')
+
+
+# 연습문제 2번
+
+sentence = input('문장 : ')
+
+sentence.upper()
+
+result = dict()
+
+
+
+for c in sentence:
+
+    if result.get(c):
+
+        result[c] += 1
+
+    else:
+
+        result[c] = 1
+
+
+
+sorted_list = sorted(result.items(), key=lambda t: t[1])
+
+
+
+if len(sorted_list) >= 2 and sorted_list[-1][1] == sorted_list[-2][1]:
+
+    print('?')
+
+else:
+
+
+    print(sorted_list[-1][0])
+
+
+### 장진영
+1. 
+print("Enter a value: ")
+
+list=[]
+for i in range(10):
+    num=int(input())
+
+    if num==0:break        
+    list.append(num)
+
+   
+list.sort()
+print(list)
+list_length=len(list)
+print(list[list_length - 2])
+
+
+
+### 서승훈
+max1 = 0
+max2 = 0
+a = []
+
+for i in range(10):
+
+    print("정수를 입력해주세요. 종료하고 싶으시면, 0을 입력하세요.")
+    a.append(int(input()))
+
+    if (a[i] != 0):
+        if(a[i] > max1):
+            max2 = max1
+            max1 = a[i]
+        elif(a[i] > max2):
+            max2 = a[i]
+        else:
+            max2 = max2
+            
+    else:
+        break
+
+
+print("두번째로 큰 정수 : ", max2)
+
+2. 
+from collections import Counter
+
+print("알파벳으로 된 단어나 문장을 입력하시오.")
+sentence = str(input())
+counter = Counter(sentence)
+print(max(sentence, key=counter.get))

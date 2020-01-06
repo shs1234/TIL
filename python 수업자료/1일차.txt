@@ -1,0 +1,78 @@
+인공지능 서비스 기술의 이해와 파이썬 프로그래밍 -32 h
+데이터 수집 방법론과 스크레이핑 (numpy, pandas, 이미지와 텍스트 스크래이핑) 40h
+딥러닝 구현과 알고리즘 (딥러닝, 역전파, CNN 알고리즘, 지도학습, 비지도학습)-32
+이미지처리, 손글씨, 음성인식 - 32h
+
+for  x in range(0, 10, 2) :
+   print(x)
+
+for  x in range(0, 10, 2) :
+   print(x+1) #?
+
+for  x in range(2, 11, 2) :
+   print(x)
+
+for  x in range(1, 11, 2) :
+   print(x) #홀수
+
+###################################################
+계획:
+교육경험 :
+실무경험:
+자신의 특성(PR) - 자유롭게
+
+1차 지급교재
+케라스 창시자에게 배우는 딥러닝
+파이썬 라이브러리를 활용한 데이터 분석
+파이썬으로 웹 크롤러 만들기
+머신 러닝 교과서 with 파이썬, 사이킷런, 텐서플로
+실무가 훤히 보이는 머신러닝 & 딥러닝 
+
+
+https://www.python.org/
+
+data=1
+print(type(data))
+print(data)
+
+data=9.0
+print(type(data))
+print(data)
+
+data='hello'
+print(type(data))
+print(data)
+
+data=False
+print(type(data))
+print(data)
+
+a = 10.5
+print(type(a))
+a = int(a)
+print(type(a))
+
+b='a'
+b=int(b)   #형변환?
+
+a=10.5
+result = bool(a) #형변환?
+print(result)
+
+print(" "==False) #False
+print(""==False)  #False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
