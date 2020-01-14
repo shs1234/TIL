@@ -13,3 +13,17 @@
 
 ## 2. Python
 
+
+
+## 3. Tensorflow
+
+
+
+## 4. openCV
+
+1. 색/이미지
+2. 산술연산 (LUT)
+3. Filter (edge)
+4. Filter (이진화 - morphology)
+5. Tesseract, 기하학적 변형
+6. Corner
