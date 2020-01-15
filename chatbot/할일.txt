@@ -1,0 +1,4 @@
+기능별로
+create put delete get(select)
+
+피클 기능 추가.
