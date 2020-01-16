@@ -7,7 +7,7 @@
 * [git 기초](./git/git.md)
 * [gitignore](./git/gitignore)
 * [마크다운 활용](./markdown.md)
-* [push_pull 과정에서 오류 해결 방법](./git/push_pull 과정에서 오류 해결 방법.md)
+* [push_pull 과정에서 오류 해결 방법](.push_pull crush solution.md)
 
 
 
@@ -27,3 +27,9 @@
 4. Filter (이진화 - morphology)
 5. Tesseract, 기하학적 변형
 6. Corner
+
+## 5. chatbot
+
+1. flask 사용법
+2. postman 사용법
+3. 
