@@ -5,26 +5,44 @@ import urllib.request
 import cv2
 import numpy as np
 import pytesseract
-
+import pandas as pd
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
-
-app = Flask(__name__)
-
 # set FLASK_APP=main.py
 # flask run
 
-@app.route('/', methods=['post'])
-def hi():
-    return '안녕~'
+app = Flask(__name__)
+
+db = pd.read_excel('db.xlsx')
+db.set_index('Unnamed: 0', inplace=True)
+new_index = db.shape[0]
+
+@app.route('/show_namecard', methods=['post'])
+def show_namecard():
+    return {
+    "version": "2.0",
+    "template": {
+        "outputs": [
+            {
+                "simpleText": {
+                    "text": db.shape[0]-1
+                }
+            }
+        ]
+    }
+}
+
 
 
 
 @app.route('/namecard', methods=['post'])
 def namecard():
+    global new_index
+
     body = request.json
 
     url = body['action']['detailParams']['asd']['origin']
-    print (url)
+    
+    add_input_url(url)
 
     urllib.request.urlretrieve(url, 'namecard.png')
 
@@ -45,11 +63,6 @@ def namecard():
     approx = cv2.approxPolyDP(contours[0], 0.02 * length, True) #얼마나 꺾이는지 확인, 꼭지점 위치
     cv2.drawContours(img_copy, [approx], -1, (0,255,0),5)
 
-    # imshow('', img_blur)
-    # imshow('', binary)
-    # imshow('', opening)
-    # imshow('', img_copy)
-
     height, width = img.shape[:2]
     point_list = approx
     pts1 = np.float32([list(point_list[1]),
@@ -57,14 +70,17 @@ def namecard():
                     list(point_list[2]),
                     list(point_list[3])])
 
-    # print(pts1)
+
     pts2 = np.float32([[0,0], [width,0], [0,height], [width,height]])
-    # print(pts2)
+
     M = cv2.getPerspectiveTransform(pts1, pts2)
-    # print(M)
+
     img_result = cv2.warpPerspective(img, M, (width, height))
-    # imshow('', img_result)
+
     str = pytesseract.image_to_string(img_result)
+    
+    add_input_str(str)
+    new_index += 1
     print(str)
     return {
     "version": "2.0",
@@ -78,6 +94,16 @@ def namecard():
         ]
     }
 }
+
+
+def add_input_url(url):
+    db.loc[new_index, 'url'] = url
+    db.to_excel('db.xlsx')
+
+
+def add_input_str(str):
+    db.loc[new_index, 'str'] = str
+    db.to_excel('db.xlsx')
 
 
 # @app.route('/')
