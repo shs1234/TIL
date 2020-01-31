@@ -148,3 +148,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/python,windows,jupyternotebooks
+AI/FaceAnalysis/shape_predictor_68_face_landmarks.dat
+AI/FaceAnalysis/age_net.caffemodel
+AI/FaceAnalysis/fer2013.csv
+AI/FaceAnalysis/gender_net.caffemodel
