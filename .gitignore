@@ -153,3 +153,4 @@ AI/FaceAnalysis/age_net.caffemodel
 AI/FaceAnalysis/fer2013.csv
 AI/FaceAnalysis/gender_net.caffemodel
 web/day2/server/yolov3.weights
+AI/detection/day1/yolov3.weights
