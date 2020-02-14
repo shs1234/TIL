@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-import face
+import json
 # Create your views here.
 
 def index(request):
@@ -34,12 +34,12 @@ def uploadimage(request):
     for chunk in file.chunks():
         fp.write(chunk)
     fp.close()
-    result=face.faceverification(settings.BASE_DIR + '/static/' + filename)
+#     result=face.faceverification(settings.BASE_DIR + '/static/' + filename)
 #     result = faceverification(settings.BASE_DIR + '/static/' + filename)
     
-    if result != '':
-        request.session['user']=result
-        return redirect('/service')
+#     if result != '':
+#         request.session['user']=result
+#         return redirect('/service')
     
     return redirect('/static/login.html')
     
@@ -49,3 +49,11 @@ def service(request):
         
     html='main service<br>'+request.session.get('user')+'님 환영합니다. <a href=/logout>로그아웃</a>'
     return HttpResponse(html)
+
+def calc(request):
+    op1 = request.GET['op1']
+    op2 = request.GET['op2']
+    result = int(op1) + int(op2)
+
+    return HttpResponse( json.dumps({'result': result}), content_type='application/json')
+    #return JsonResponse({'result': result})
