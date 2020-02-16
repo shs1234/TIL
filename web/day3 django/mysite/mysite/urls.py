@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('ajax/', include('ajax.urls')),
+    path('polls/', include('polls.urls')),
     path('', include('myapp.urls')),
     path('admin/', admin.site.urls)
 ]
