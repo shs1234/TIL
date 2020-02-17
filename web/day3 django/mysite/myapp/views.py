@@ -63,25 +63,31 @@ def calc(request):
     
 def listUser(request):
     if request.method=='GET':
+        userid=request.GET.get('userid','')
+        if userid!='':
+            User.objects.all().get(userid=userid).delete()
+            return redirect('/listuser')
+        
         q=request.GET.get('q',"")
         data=User.objects.all()
         if q!="":
             data=User.objects.all().filter(name__contains=q)
         return render(request,'template2.html', {'data':data})
     
-        userid=request.GET.get('userid','')
-        if userid!='':
-            User.objects.all().get(userid=userid).delete()
-            return redirect('/listuser')
-    
     else :
-        # db insert
-        userid = request.POST['userid']
-        name = request.POST['name']
-        age = request.POST['age']
-        hobby = request.POST['hobby']
-        
-        User(userid=userid, name=name, age=age, hobby=hobby).save()
-        
+        isplus = request.POST.get('+','')
+        if isplus != '':
+            userid = request.POST['userid']
+            name = request.POST['name']
+            age = request.POST['age']
+            hobby = request.POST['hobby']
+
+            User(userid=userid, name=name, age=age, hobby=hobby).save()
+            
+        isdelete=request.POST.get('-','')
+        if isdelete!='':
+            userid = request.POST['userid']
+            User.objects.all().get(userid=userid).delete()
+            
         return redirect('/listuser')
     
