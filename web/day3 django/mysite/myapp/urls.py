@@ -12,5 +12,7 @@ urlpatterns = [
     
     path('uploadimage', views.uploadimage),
     
+    path('listuser', views.listUser),
+    
     path('service', views.service)
 ]

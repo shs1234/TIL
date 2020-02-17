@@ -3,7 +3,10 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import json
+from myapp.models import User
 # Create your views here.
+
+# jquery 공부해보기
 
 def index(request):
     return HttpResponse('hello django')
@@ -57,3 +60,28 @@ def calc(request):
 
     return HttpResponse( json.dumps({'result': result}), content_type='application/json')
     #return JsonResponse({'result': result})
+    
+def listUser(request):
+    if request.method=='GET':
+        q=request.GET.get('q',"")
+        data=User.objects.all()
+        if q!="":
+            data=User.objects.all().filter(name__contains=q)
+        return render(request,'template2.html', {'data':data})
+    
+        userid=request.GET.get('userid','')
+        if userid!='':
+            User.objects.all().get(userid=userid).delete()
+            return redirect('/listuser')
+    
+    else :
+        # db insert
+        userid = request.POST['userid']
+        name = request.POST['name']
+        age = request.POST['age']
+        hobby = request.POST['hobby']
+        
+        User(userid=userid, name=name, age=age, hobby=hobby).save()
+        
+        return redirect('/listuser')
+    

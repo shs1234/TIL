@@ -1,0 +1,30 @@
+user list<br><br>
+
+{%for d in data%}
+    이름 {{d.name}} 나이 {{d.age}} <a href='listuser?userid={{d.userid}}'>삭제</a><br>
+{%endfor%}
+<br>
+
+<form action=listuser>
+    <input type='text' name='q'>
+    <input type='submit' name='검색' value=검색>
+</form>
+
+<form action=listuser method='POST'>
+    {%csrf_token%}
+    아이디<input type='text' name='userid'><br>
+    이름<input type='text' name='name'><br>
+    나이<input type='text' name='age'><br>
+    취미<input type='text' name='hobby'><br>
+    <input type='submit' name='+' value=추가>
+</form>
+
+
+<!-- <form action method>
+    <select>
+        {%for d in data%}
+        <option value={{d.name}}>{{d.name}}</option>
+        {%endfor%}
+        <input type='submit' name='-' value=삭제>
+    </select>
+</form> -->
