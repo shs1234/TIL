@@ -76,6 +76,8 @@ def listUser(request):
     
     else :
         isplus = request.POST.get('+','')
+        print(request.POST)
+        print(isplus)
         if isplus != '':
             userid = request.POST['userid']
             name = request.POST['name']
@@ -85,6 +87,8 @@ def listUser(request):
             User(userid=userid, name=name, age=age, hobby=hobby).save()
             
         isdelete=request.POST.get('-','')
+        print(request.POST)
+        print(isdelete)
         if isdelete!='':
             userid = request.POST['userid']
             User.objects.all().get(userid=userid).delete()
