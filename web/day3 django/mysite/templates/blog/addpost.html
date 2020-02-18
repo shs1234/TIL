@@ -1,4 +1,4 @@
-<form action="{%url 'list'%}" method=post>
+<form action="{%url 'blog:addpost'%}" method=post>
     {%csrf_token%}
     제목<br><input type='text' name=title><br><br>
     내용<br><textarea cols=30 rows=30 name=text></textarea><br>

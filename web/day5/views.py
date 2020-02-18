@@ -48,6 +48,22 @@ class PostView(View) :
         Post.objects.create(title=title, text=text, author=user)
         return redirect("list")
 
+class LoginView(View) :
+    def get(self, request):
+        return render(request, "blog/login.html")
+
+    def post(self, request):
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(username=username, password=password)
+        if user == None :
+            return redirect("login")
+        request.session["username"] = username
+        return redirect("list")
+    
+    
+
 class PostEditView(View) :
     def get(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
@@ -70,17 +86,3 @@ def validator(value) :
 class PostForm(Form):
     title = CharField(label='제목', max_length=20, validators=[validator])
     text = CharField(label="내용", widget=Textarea)
-
-class LoginView(View) :
-    def get(self, request):
-        return render(request, "blog/login.html")
-
-    def post(self, request):
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-        user = authenticate(username=username, password=password)
-        if user == None :
-            return redirect("login")
-        request.session["username"] = username
-        return redirect("list")

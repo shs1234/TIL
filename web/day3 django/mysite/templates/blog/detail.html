@@ -5,4 +5,7 @@
 제목 : {{p.title}}<br><hr>
 {{p.text|linebreaks}}
 
+<a href="{% url 'blog:editpost' p.pk  %}">수정</a>
+
 {% endblock %}
+

@@ -3,12 +3,12 @@
 {{username}}님 로그인되었습니다. <br><br>
 <hr>
 {% for d in data %}
-{{d.pk}} : <a href="{%url 'detail' d.pk%}">{{d.title}}</a>
+{{d.pk}} : <a href="{%url 'blog:detail' d.pk%}">{{d.title}}</a>
 <hr>
 {% endfor %}
 
 
-<form action="{%url 'addpost'%}">
+<form action="{%url 'blog:addpost'%}">
     <input type=submit value=글쓰기>
 </form>
 {% endblock %}
