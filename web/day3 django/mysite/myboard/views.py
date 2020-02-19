@@ -14,18 +14,22 @@ from .forms import BoardForm
 # 조회수 이미지 n개의 게시판 완성할것.
 
 class BoardView(View) :
-    def get(self, request, pk, mode):
+    def get(self, request, category, pk, mode):
         if mode == 'list':
             data=Board.objects.all()
+            category=[]
+            for d in data:
+                category.append(d.category)
+            
             username=request.session.get('username','')
-            context={'data':data, 'username':username}
+            context={'data':data, 'username':username, 'category':['기타', '자료실', 'common']}
             return render(request, 'myboard/list.html', context)
         
         elif mode == 'detail':
             p=get_object_or_404(Board, pk=pk)
             p.cnt += 1
             p.save()
-            return render(request, 'myboard/detail.html', {'p':p})
+            return render(request, 'myboard/detail.html', {'p':p, 'category':category})
         
         elif mode == 'add':
             form = BoardForm()
@@ -37,9 +41,9 @@ class BoardView(View) :
         else : # 예상에 없을때 -> 오류 발생
             return HttpResponse('error page')
             
-        return render(request, "myboard/edit.html", {"form":form})
+        return render(request, "myboard/edit.html", {"form":form, 'category':category})
 
-    def post(self, request, pk, mode):
+    def post(self, request, category, pk, mode):
 
         username = request.session["username"]
         user = User.objects.get(username=username)
@@ -49,36 +53,24 @@ class BoardView(View) :
         else:
             board = get_object_or_404(Board, pk=pk)
             form = BoardForm(request.POST, instance=board)
-            
-         
-#         form.img = request.FILES.get('img') # 사진 파일명 저장
-#         if form.img != None: # 파일 올렸으면 저장.
-#             file = request.FILES['img']
-#             filename = file._name
-#             filepath = settings.BASE_DIR + "/static/" + filename
-#             fp = open(filepath, "wb")
-#             for chunk in file.chunks() :
-#                 fp.write(chunk)
-#             fp.close()
-            
+                     
         if form.is_valid():
             board = form.save(commit=False) # 저장만 하고 커밋은 안함.
-#             print(board.img)
-            
-#             form.img = request.FILES.get('img') # 사진 파일명 저장
-#             if form.img != None: # 파일 올렸으면 저장.
-#                 file = request.FILES['img']
-#                 filename = file._name
-#                 filepath = settings.BASE_DIR + "/static/" + filename
-#                 fp = open(filepath, "wb")
-#                 for chunk in file.chunks() :
-#                     fp.write(chunk)
-#                 fp.close()
-            
-            
-#             board.img = form.img
+
             if pk == 0:
                 board.author = user
+            
+            file = request.FILES.get('file','')    # 파일이 올라왔는지 확인.
+            if file!='':
+                filename = file._name
+                filepath = settings.BASE_DIR + "/static/" + filename
+                fp = open(filepath, "wb")
+                for chunk in file.chunks() :
+                    fp.write(chunk)
+                fp.close()
+                board.img = filename     #파일이 있을경우 img에 파일 이름 저장.
+                
+            board.category = category
             board.save()
             return redirect("myboard:myboard", 0, 'list')
         return render(request, "myboard/edit.html", {"form": form})

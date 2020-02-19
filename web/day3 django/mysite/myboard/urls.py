@@ -5,6 +5,6 @@ from . import views
 
 app_name='myboard'
 urlpatterns = [
-    path('<int:pk>/<mode>/', views.BoardView.as_view(), name='myboard'),
+    path('<category>/<int:pk>/<mode>/', views.BoardView.as_view(), name='myboard'),
 
 ]

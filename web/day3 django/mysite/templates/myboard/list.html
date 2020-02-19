@@ -1,14 +1,21 @@
 {% extends 'myboard/base.html' %}
 {% block content %}
 {{username}}님 로그인되었습니다. <br><br>
+
+{% for c in category %}
+
+<a href="{%url 'myboard:myboard' '{{c}}' d.pk 'list' %}">{{c}}</a>
+
+{% endfor %}
+
 <hr>
 {% for d in data %}
-{{d.pk}} : <a href="{%url 'myboard:myboard' d.pk 'detail'%}">{{d.title}}</a>
+{{d.pk}} : <a href="{%url 'myboard:myboard' 'category' d.pk 'detail' %}">{{d.title}}</a>
 <hr>
 {% endfor %}
 
 
-<form action="{%url 'myboard:myboard' 0 'add'%}">
+<form action="{%url 'myboard:myboard' 'category' 0 'add'%}">
     <input type=submit value=글쓰기>
 </form>
 {% endblock %}
