@@ -19,9 +19,7 @@
 
 <form action="upload" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-      <input name="title" value="테스트1"/>
-      <input name="contents" value="테스트 자료입니다."/>
-      <input type="file" name="file1"/>
+      <input type="file" name="img"/>
       <input type="submit" value="upload">
 </form>
 

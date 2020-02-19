@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'myboard',
     'blog',
     'django_extensions',
     'myapp.apps.MyappConfig',

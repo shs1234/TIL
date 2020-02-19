@@ -7,11 +7,11 @@ app_name='blog'
 urlpatterns = [
     path('', views.index),
     
-#     path('postlist/', views.postlist, name='postlist'),
-#     path('<int:pk>/detail/', views.detail, name='detail'),
+    path('postlist/', views.postlist, name='postlist'),
+    path('<int:pk>/detail/', views.detail, name='detail'),
 
 #     path('addpost/', views.AddPost.as_view(), name='addpost'),
-    path('<int:pk>/<mode>/', views.EditPost.as_view(), name='viewblog'),
+    path('<int:pk>/editpost/', views.EditPost.as_view(), name='editpost'),
     
     path('login/', views.LoginView.as_view(), name='login'),
 ]

@@ -24,7 +24,7 @@ def uploadForm(request) :
 @csrf_exempt
 def upload(request) :
 
-    file = request.FILES['file1']
+    file = request.FILES['img']
     filename = file._name
     fp = open(settings.BASE_DIR + "/static/" + filename, "wb")
     for chunk in file.chunks() :
