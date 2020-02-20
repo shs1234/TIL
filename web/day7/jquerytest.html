@@ -1,0 +1,83 @@
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<button id=btnCalc>로그인 </button>
+
+<div id=view> 
+    <div id=item>
+    <a href=list?id=4>  <span id=title>제목</span>    </a>
+    조회수<span id=cnt>5</span>
+    
+    <br>
+    </div>
+</div>
+
+<script>
+    // $('#view').append('<a href=list?id=4>데이터2</a><br>')
+    // $('#title').html('제목1')
+    // $('#cnt').text('10')
+    
+    // item = $('#item').clone()
+    // $('#title', item).html('제목1')     // id=item이 아닌, 복사한 item에 있는 title을 변경
+    // $('#cnt', item).text('10')
+    // $('#view').append(item)
+
+    // json = {"datas": [{'pk':1, 'title':'353351', 'cnt':5}]}
+
+    // for (i=0; i < json.datas.length; i++){
+    //     // console.log(json.datas[i].title);
+    //     item = $('#item').clone();
+    //     item.show();
+    //     $('#title', item).html(json.datas[i].title);
+    //     $('#cnt', item).text(json.datas[i].cnt);
+    //     $('#view').append(item);
+    // }
+
+    $('#item').hide() // 템플릿용으로 만든것은 안보이게 함. 단순 템플릿 용으로만 사용.
+
+    var page = 1;
+
+    $('#btnCalc').click( function() {
+        page++;
+        getPage(page);
+    });
+
+
+    function getPage(page){
+            json = {"datas": [{'pk':1, 'title':'353351', 'cnt':5}]}
+
+            for (i=0; i < json.datas.length; i++){
+                // console.log(json.datas[i].title);
+                item = $('#item').clone();
+                item.show();
+                $('#title', item).html(json.datas[i].title);
+                $('#cnt', item).text(json.datas[i].cnt);
+                $('#view').append(item);
+            }
+    }
+
+    getPage(page);
+
+
+$.get('/myboard/ajaxget', {page:1}, function(json){
+
+console.log(JSON.stringify(json));
+
+});
+
+
+
+        // item = $('#item').clone()
+        // item.show()    // hide시킨 템플릿을 복사하여 다시 보이게 함.
+        // $('#title', item).html('제목 '+ index)     
+        // $('#cnt', item).text('10')
+        // $('#view').append(item)
+        // index++;
+
+
+        // item = $('#item').clone()
+        // $('#view').append(item)
+        
+        // $('#view').append('<a href=list?id=4>데이터2</a><br>')
+
+</script>
