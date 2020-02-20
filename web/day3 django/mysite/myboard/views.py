@@ -23,7 +23,7 @@ def page(request):
     page = request.GET.get("page", 1)
     p = Paginator(datas, 3)
     subs = p.page(page)  #(page-1)*3:page*3
-    return render(request, "myboard/page,html", {"datas":subs})
+    return render(request, "myboard/page.html", {"datas":subs})
 
 def ajaxdel(request):
     pk = request.GET.get('pk')
