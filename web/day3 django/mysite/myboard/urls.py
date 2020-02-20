@@ -1,10 +1,15 @@
 from django.urls import path
 from . import views
+from django.shortcuts import redirect
 
-# path('test', views.test) : 주소, 그 주소로 가면 사용되는 함수 명
 
-app_name='myboard'
 urlpatterns = [
-    path('<category>/<int:pk>/<mode>/', views.BoardView.as_view(), name='myboard'),
+    path('', views.page),
+    path('ajaxdel', views.ajaxdel),
+    path('ajaxget', views.ajaxget),
+    
+    
+    path('<category>/<int:pk>/<mode>/', views.BoardView.as_view(), name="myboard"),
+    #path('', lambda request: redirect('myboard', 'common', 0, 'list')),
 
 ]
