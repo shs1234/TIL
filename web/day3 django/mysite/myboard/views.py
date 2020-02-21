@@ -3,12 +3,89 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.conf import settings
 from django.urls import reverse
+from django.db import connection
+
 
 from . import forms
 from . import models
 from . import apps
 from django.urls import resolve
+
+def dictfetchall(fetchall):
+    datas=[]
+    for r in fetchall :
+        datas.append(dict(zip(['filename'],r)))
+    
+    return datas
+
+def photolist(request):
+    ######################################### 이미지 목록 보기
+    
+    username = 'admin'
+    sql = f"""
+    select filename
+    from myboard_Image
+    where author_id=(select id from auth_user where username='{username}')
+    """
+    
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    
+    datas=dictfetchall(result)
+    context = {'datas':datas, 'username':username}
+    return render(request, 'myboard/photolist.html', context)
+    
+    ########################################## 이미지 업로드
+def upload(request):
+#     username = request.session['username']
+    username = 'admin'
+    
+    file = request.FILES['filename']
+    filename = file._name
+    print(filename)
+    filepath = settings.BASE_DIR + "/static/faces/" + username+ '/'+ filename
+    fp = open(filepath, "wb")
+    for chunk in file.chunks() :
+        fp.write(chunk)
+    fp.close()
+    
+    cursor = connection.cursor()
+    sql = f"select id from auth_user where username='{username}'"
+    cursor.execute(sql)
+    author_id = cursor.fetchone()[0]
+    
+    sql = f"""
+    INSERT INTO "main"."myboard_image"
+    ("author_id", "filename")
+    VALUES ({author_id}, '{filename}');
+    """
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    
+    
+    return redirect('photolist')
+
+def listpage(request, category):
+    username = request.session.get("username","")
+    page = int(request.GET.get("page", 1))
+    
+    cursor = connection.cursor()
+    sql = "SELECT id, title, cnt from myboard_board where category='common'"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+
+    datas=[]
+    for r in results :
+        datas.append(dict(zip(['id','title','cnt'],r)))
+
+    subs = datas[(page-1)*3:(page*3)]
+    print(subs)
+
+    context = {"datas":subs, 'username':username}
+    return render(request, 'myboard/test.html', context)
 
 
 def page(request):
@@ -23,7 +100,7 @@ def page(request):
     page = request.GET.get("page", 1)
     p = Paginator(datas, 3)
     subs = p.page(page)  #(page-1)*3:page*3
-    return render(request, "myboard/page,html", {"datas":subs})
+    return render(request, "myboard/page.html", {"datas":subs})
 
 def ajaxdel(request):
     pk = request.GET.get('pk')

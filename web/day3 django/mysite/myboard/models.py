@@ -4,6 +4,10 @@ from django.utils import timezone
 
 # Create your models here.
 
+# class Image(models.Model):
+#     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+#     filename = models.CharField(max_length=50)
+
 class Board(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)

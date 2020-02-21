@@ -1,0 +1,14 @@
+{{username}}<br>
+
+<form action=upload enctype="multipart/form-data" method=post>
+    {%csrf_token%}
+    <input type ='file' name='filename'/>
+    <input type=submit value=사진등록>
+    <input type =hidden name=username value='{{username}}'>
+</form>
+
+{% for d in datas%}
+
+<img src="/static/faces/{{username}}/{{d.filename}}" width=100><br>
+
+{% endfor %}
