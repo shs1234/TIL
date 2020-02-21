@@ -2,11 +2,9 @@
 {% block content %}
 {{username}}님 로그인되었습니다. <br><br>
 
-{% for c in category %}
-
-<a href="{%url 'myboard:myboard' '{{c}}' d.pk 'list' %}">{{c}}</a>
-
-{% endfor %}
+<a href="{%url 'myboard:myboard' 'common' 0 'list' %}"/>일반 게시판
+<a href="{%url 'myboard:myboard' 'data' 0 'list' %}"/>자료실
+<a href="{%url 'myboard:myboard' 'etc' 0 'list' %}"/>기타
 
 <hr>
 {% for d in data %}

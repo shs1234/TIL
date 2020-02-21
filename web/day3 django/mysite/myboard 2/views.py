@@ -16,13 +16,10 @@ from .forms import BoardForm
 class BoardView(View) :
     def get(self, request, category, pk, mode):
         if mode == 'list':
-            data=Board.objects.all()
-            category=[]
-            for d in data:
-                category.append(d.category)
+            data=Board.objects.all().filter(category=category)
+            user = User.objects.get(username='admin')
             
-            username=request.session.get('username','')
-            context={'data':data, 'username':username, 'category':['기타', '자료실', 'common']}
+            context={'data':data, 'username':user, 'category':category}
             return render(request, 'myboard/list.html', context)
         
         elif mode == 'detail':
@@ -33,6 +30,7 @@ class BoardView(View) :
         
         elif mode == 'add':
             form = BoardForm()
+            
             
         elif mode == 'edit':
             board = get_object_or_404(Board, pk=pk)
@@ -72,5 +70,5 @@ class BoardView(View) :
                 
             board.category = category
             board.save()
-            return redirect("myboard:myboard", 0, 'list')
+            return redirect("myboard:myboard", category, 0, 'list')
         return render(request, "myboard/edit.html", {"form": form})

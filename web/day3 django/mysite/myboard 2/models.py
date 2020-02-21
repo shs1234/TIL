@@ -12,7 +12,7 @@ class Board(models.Model):
         default=timezone.now)  # 날짜와 시간
     cnt = models.IntegerField(default=0) # 조회수
     img = models.CharField(max_length=200, null=True, blank=True) # 이미지
-    category = models.CharField(max_length=10, default='common')
+    category = models.CharField(max_length=10)
 
     def __str__(self):
         return self.title
