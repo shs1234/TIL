@@ -5,6 +5,17 @@
     <title>namecard list</title>
 </head>
 <body>
+    <table border="1">
+        <th>이름</th>
+        <th>email</th>
+        <th>mobile</th>
+        <th>address</th>
+    {% for d in data %}
+        <tr>
+    <td> {{d.name}} <td> {{d.email}} <td> {{d.mobile}} <td> {{d.address}}
+        </tr>
+    {% endfor %}
+    </table>
     <p>namecard list page</p>
 </body>
 </html>

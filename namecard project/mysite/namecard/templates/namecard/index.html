@@ -5,8 +5,32 @@
     <title>namecard</title>
 </head>
 <body>
-    <p> 명함 등록</p>
-    <p><a href=http://127.0.0.1:8000/namecard/list> 명함 목록</a></p>
+    <table>
+    <form method="post">
+        {%csrf_token%}
+        <tr><td>이름 <td>: <input type="text" name="name">
+        <tr><td>email <td>: <input type="text" name="email">
+        <tr><td>mobile <td>: <input type="text" name="mobile">
+        <tr><td>address <td>: <input type="text" name="address">
+        </table>
+        <input type="file" name="file">
+        <input type="submit" name="add">
+    </form>
+
+
+    <br><br>
+
+    <table border="1">
+        <th>이름</th>
+        <th>email</th>
+        <th>mobile</th>
+        <th>address</th>
+    {% for d in data %}
+        <tr>
+    <td> {{d.name}} <td> {{d.email}} <td> {{d.mobile}} <td> {{d.address}}
+        </tr>
+    {% endfor %}
+    </table>
     <p> 명함 찾기</p>
     <p> 명함 삭제</p>
 
