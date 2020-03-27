@@ -5,34 +5,50 @@
     <title>namecard</title>
 </head>
 <body>
-    <table>
-    <form method="post">
+    <form method="POST">
         {%csrf_token%}
-        <tr><td>이름 <td>: <input type="text" name="name">
+        <table>
+        <tr><td>이름 <td>: <input type="text" name="name" required>
         <tr><td>email <td>: <input type="text" name="email">
         <tr><td>mobile <td>: <input type="text" name="mobile">
         <tr><td>address <td>: <input type="text" name="address">
+        <tr><td>category <td>: <input type="text" name="category">
         </table>
         <input type="file" name="file">
-        <input type="submit" name="add">
+        <input type="submit" name="add" value="등록">
     </form>
 
+    <br>
 
-    <br><br>
+    <form>
+    <select id="option" name="option">
+        <option value="all">전체목록</option>
+        <option value="name">이름</option>
+        <option value="category">category</option>
+    </select>
+    <input type="text" name="field">
+    <input type="submit" value="검색">
+    </form>
 
     <table border="1">
         <th>이름</th>
         <th>email</th>
         <th>mobile</th>
         <th>address</th>
+        <th>category</th>
     {% for d in data %}
         <tr>
-    <td> {{d.name}} <td> {{d.email}} <td> {{d.mobile}} <td> {{d.address}}
+            <form>
+            <td> {{d.name}}
+            <td> {{d.email}}
+            <td> {{d.mobile}}
+            <td> {{d.address}}
+            <td> {{d.category}}
+            <td> <a href="?del={{d.pk}}" name="del">삭제</a>
+            </form>
         </tr>
     {% endfor %}
     </table>
-    <p> 명함 찾기</p>
-    <p> 명함 삭제</p>
 
 </body>
 </html>
