@@ -5,7 +5,7 @@
     <title>namecard</title>
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {%csrf_token%}
         <table>
         <tr><td>이름 <td>: <input type="text" name="name" required>
@@ -39,7 +39,7 @@
     {% for d in data %}
         <tr>
             <form>
-            <td> {{d.name}}
+            <td> <a href="" onclick="window.open('?img={{d.name}}')" name="img">{{d.name}}
             <td> {{d.email}}
             <td> {{d.mobile}}
             <td> {{d.address}}

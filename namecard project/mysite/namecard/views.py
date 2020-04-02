@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from .models import Namecard
-from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
     if request.method == 'GET':
+        isimg = request.GET.get('img', '')
+        if isimg != '':
+            data = Namecard.objects.filter(name=isimg)
+            print(data)
+            context = {'data': data}
+            return render(request, 'namecard/img.html', context)
+
         isdel = request.GET.get('del', '')
-        if isdel !='':
+        if isdel != '':
             Namecard.objects.filter(pk=isdel).delete()
             return redirect('/namecard')
 
@@ -34,9 +41,23 @@ def index(request):
             mobile = request.POST['mobile']
             address = request.POST['address']
             category = request.POST['category']
-            image = request.POST['file']
+
+            file = request.FILES.get('file', '')    # 파일이 올라왔는지 확인.
+
+            if file!='':
+                filename = file._name
+                filepath = settings.BASE_DIR + "/static/" + filename
+                fp = open(filepath, "wb")
+                for chunk in file.chunks() :
+                    fp.write(chunk)
+                fp.close()
+                image = filename
+                Namecard(name=name, email=email, mobile=mobile,
+                         address=address, category=category, image=image).save()
+                return redirect('/namecard')
+
 
             Namecard(name=name, email=email, mobile=mobile,
-                     address=address, category=category, image=image).save()
+                     address=address, category=category).save()
 
         return redirect('/namecard')
