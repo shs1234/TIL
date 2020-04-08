@@ -154,3 +154,5 @@ AI/FaceAnalysis/fer2013.csv
 AI/FaceAnalysis/gender_net.caffemodel
 web/day2/server/yolov3.weights
 AI/detection/day1/yolov3.weights
+kaggle/Santander Product Recommendation/datasets/test_ver2.csv
+kaggle/Santander Product Recommendation/datasets/train_ver2.csv
