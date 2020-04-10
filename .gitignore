@@ -156,3 +156,6 @@ web/day2/server/yolov3.weights
 AI/detection/day1/yolov3.weights
 kaggle/Santander Product Recommendation/datasets/test_ver2.csv
 kaggle/Santander Product Recommendation/datasets/train_ver2.csv
+project/video/full.mp4
+project/video/lol1.mp4
+project/video/lol2.mp4
